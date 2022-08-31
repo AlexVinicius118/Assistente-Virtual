@@ -7,6 +7,8 @@ import pywhatkit
 
 audio = sr.Recognizer()
 maquina = pyttsx3.init()
+#maquina.say('Olá, senhor, em que posso ajudá-lo?') = Teste de voz
+maquina.runAndWait() 
 
 def executa_comando():
     try:
