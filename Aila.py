@@ -5,6 +5,7 @@ import random
 import webbrowser
 import pyttsx3
 import os
+import datetime
 
 class Virtual_assit():
     def __init__(self, assist_name, person):
@@ -69,6 +70,32 @@ class Virtual_assit():
 
 
     def respond(self, voice_data):
+        #Variavel de "Curiosidade" + "Piada"
+        curiosidades = [
+        "Existem mais formas de vida vivendo na sua pele do que humanos habitando a Terra. Esta, certamente, é uma das curiosidades do mundo mais impactantes.",
+        "Em média, cada pessoa perde 4kg de pele morta em um ano",
+        "Charles Osborne teve uma crise de soluços que durou, nada mais nada menos que, 69 anos. Começou em 1922, quando pesava um cerdo para sacrificá-lo e só parou quando ele já tinha 97 anos.",
+        "Todas as pessoas que têm olhos azuis têm um mesmo ancestral em comum.",
+        "O cérebro é um órgão extraordinário. Isso porque comanda todo o organismo humano. Além disso, é o único que não pode sentir dor.",
+        "Geralmente, 30% do sangue bombeado pelo coração vai direto para o cérebro.",
+        "A decomposição do corpo humano começa apenas 4 minutos depois da morte.",
+        "Respirar pela boca o tempo todo pode causar cáries e modificar o formato da mandíbula.Uma das curiosidades do mundo mais chocantes, hein?",
+        "Quando você fala para si mesmo, por exemplo, enquanto lê, essa ‘voz’ interior é acompanhada de movimentos muito sutis da laringe.",
+        "Beijar um bebê na orelha pode deixá-lo surdo."]
+
+        piadas = [
+        "Por que os fantasmas são péssimos para contar mentiras?....... Porque são transparentes.",
+        "Por que a plantinha não foi atendida no hospital?....... Porque só tinha médico de plantão.",
+        "O que a Lua disse ao Sol?....... – Nossa, você é tão grande e ainda não te deixam sair à noite!",
+        "Eu perdi peso no mês passado....... Mas este mês ele já me encontrou de novo.",
+        "Sabe qual é a melhor forma de consumir o tempo?....... Comer relógios.",
+        "Você sabe por que a água foi presa?....... - Porque ela matou a sede.",
+        "Qual a cidade brasileira que não tem táxi?....... Uberlândia.",
+        "Qual a fórmula da água benta?....... H Deus O.",
+        "Qual o contrário de papelada?....... Pá vestida.",
+        "Contei uma piada química....... não teve reação.",]
+        
+        # Comprimento Inicial
         if self.there_exist(['hey', 'hi', 'hello', 'oi', 'holla', 'aila', 'oi aila']):
             greetigns = [f'Hi {self.person}, O que deseja fazer hoje?',
                         'Oi chefe, como posso te ajudar?',
@@ -99,17 +126,25 @@ class Virtual_assit():
             url = "http://www.youtube.com/results?search_query=" + search_term
             webbrowser.get().open(url)
             self.engine_speak("Aqui está o que eu encontrei para" + search_term + 'on youtube')
-
+            
+        #Falar as Horas
+        if self.there_exist(['que horas são']):
+            hora = datetime.datetime.now().strftime('%H:%M')
+            self.engine.runAndWait()
+            self.engine_speak("Agora são" + hora)
+            
+        #Contar uma Curiosidade
+        if self.there_exist(['curiosidades']):
+            self.engine.runAndWait()
+            self.engine_speak(random.choice(curiosidades))
+        
+        #Contar uma Piada
+        if self.there_exist(['piada']):
+            self.engine.runAndWait()
+            self.engine_speak(random.choice(piadas))
+            
         #Calculos de matematica
         #if self.there_exist(['quanto é']):
-        #
-        #
-        
-        
-        #spa entrar no sistema de fiscal
-        if self.there_exist(['open sap']):
-            pass
-
 
 assistent = Virtual_assit('Ayla', 'Alex')
 
