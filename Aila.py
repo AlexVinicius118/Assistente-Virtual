@@ -6,6 +6,7 @@ import webbrowser
 import pyttsx3
 import os
 import datetime
+from binance.client import Client
 
 class Virtual_assit():
     def __init__(self, assist_name, person):
@@ -68,6 +69,12 @@ class Virtual_assit():
             if term in self.voice_data:
                 return True
 
+    def bitCoin_price(self):
+        api_key = 'ftwcigvia9i20th9O0brkn15R6k7DXGvsrkDRboBsl4VEoVh5BXn6gsbXKdtmPmv'
+        api_secret = 'Qc9gmDovckYI0gkrpo1ZcLa5ggn80Wy16bGC5CRUZX0vwbT7OwEq0hZYuF4Jvv7p'
+        client = Client(api_key = api_key, api_secret= api_secret)
+        price = round(float(client.get_ticker(symbol = 'BTCBRL')['lastPrice']), 2)
+        return price
 
     def respond(self, voice_data):
         #Variavel de "Curiosidade" + "Piada"
@@ -94,6 +101,8 @@ class Virtual_assit():
         "Qual a fórmula da água benta?....... H Deus O.",
         "Qual o contrário de papelada?....... Pá vestida.",
         "Contei uma piada química....... não teve reação.",]
+        
+        
         
         # Comprimento Inicial
         if self.there_exist(['hey', 'hi', 'hello', 'oi', 'holla', 'aila', 'oi aila']):
@@ -142,6 +151,11 @@ class Virtual_assit():
         if self.there_exist(['piada']):
             self.engine.runAndWait()
             self.engine_speak(random.choice(piadas))
+            
+        #Bitcoin
+        if self.there_exist(['preço do bitcoin']):
+            self.engine.runAndWait()
+            self.engine_speak(f'o preço do bitcoin é de {self.bitCoin_price()} reais')
             
         #Calculos de matematica
         #if self.there_exist(['quanto é']):
