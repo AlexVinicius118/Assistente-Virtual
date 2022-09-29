@@ -9,6 +9,8 @@ import datetime
 from binance.client import Client
 import re
 import numpy as np
+import requests
+from bs4 import BeautifulSoup
 
 class Virtual_assit():
     def __init__(self, assist_name, person):
@@ -205,6 +207,16 @@ class Virtual_assit():
             divisao = self.converte_aritimetica(voice_data)
             self.engine_speak(f'O resultado é {divisao[0] / divisao[1]}')
         
+        if self.there_exist(['previsão']) and 'youtube' not in voice_data:
+            search_term = voice_data.split("previsão")[-1]
+            url = "https://www.google.com/search?q=Previsão" + search_term
+            webbrowser.get()
+            r = requests.get(url)
+            s = BeautifulSoup(r.text, "html.parser")
+            update = s.find("div", class_="BNeawe").text
+            resultado = ('Previsão ' + search_term + ' é dê ' + update)
+            print(resultado)
+            self.engine_speak(resultado)
         #if self.there_exist(['quanto é']):
 
 assistent = Virtual_assit('Ayla', 'Alex')
